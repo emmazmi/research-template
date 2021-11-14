@@ -1,0 +1,10 @@
+{
+  "files": {
+    "opensafely-covid-identification-in-primary-care-probable-covid-positive-test.csv": {
+      "id": "opensafely/covid-identification-in-primary-care-probable-covid-positive-test/2020-07-16",
+      "url": "https://codelists.opensafely.org/codelist/opensafely/covid-identification-in-primary-care-probable-covid-positive-test/2020-07-16/",
+      "downloaded_at": "2021-11-14 17:52:04.005338Z",
+      "sha": "563b536aaf850da011233653e91e10030a5bc15f"
+    }
+  }
+}

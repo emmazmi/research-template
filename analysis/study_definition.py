@@ -1,13 +1,33 @@
 from cohortextractor import StudyDefinition, patients, codelist, codelist_from_csv
+from codelists import *
 
 
 study = StudyDefinition(
     default_expectations={
-        "date": {"earliest": "1900-01-01", "latest": "today"},
+        "date": {"earliest": "index_date", "latest": "today"},
         "rate": "uniform",
-        "incidence": 0.5,
+        "incidence": 1.0,
     },
-    population=patients.registered_with_one_practice_between(
-        "2019-02-01", "2020-02-01"
+    index_date="2019-12-01",
+    population=patients.satisfying(
+        "has_covid AND has_long_covid",
+        has_covid=patients.with_these_clinical_events(covid_codes),
+        has_long_covid=patients.with_these_clinical_events(long_covid_codes),
+    ),
+
+    covid_date=patients.with_these_clinical_events(
+        covid_codes,
+        returning="date",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={"incidence": 1.0, "date": {"earliest": "index_date"}},
+    ),
+
+    long_covid_date=patients.with_these_clinical_events(
+        long_covid_codes,
+        returning="date",
+        date_format="YYYY-MM-DD",
+        find_first_match_in_period=True,
+        return_expectations={"incidence": 1.0, "date": {"earliest": "2021-01-01"}},
     ),
 )
